@@ -1,0 +1,65 @@
+﻿@model EmailSender.Models.ViewModels.EmailViewModel
+
+@{
+    ViewBag.Title = "Wysyłanie maili";
+}
+
+<h1>Wysyłanie Maili</h1>
+
+
+<div class="row">
+    <div class="col-7">
+        @using (Html.BeginForm("Email", "Home"))
+        {
+            @Html.AntiForgeryToken()
+
+            <p class="alert alert-info mt-4 mb-4">
+                Pola Odbiorcy, Tytuł oraz Tekst są
+                <strong>wymagane.</strong>
+            </p>
+
+
+            <div class="form-group mb-2">
+                @Html.LabelFor(x => x.Recipients)
+                @Html.TextBoxFor(x => x.Recipients,
+                new { @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(x => x.Recipients)
+            </div>
+
+            <div class="form-group mb-2">
+                @Html.LabelFor(x => x.SenderName)
+                @Html.TextBoxFor(x => x.SenderName,
+              new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.SenderName)
+
+            </div>
+
+
+            <div class="form-group mb-2">
+                @Html.LabelFor(x => x.Subject)
+                @Html.TextBoxFor(x => x.Subject,
+                new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Subject)
+            </div>
+
+            <div class="form-group mb-2">
+                @Html.LabelFor(x => x.Text)
+                @Html.TextAreaFor(x => x.Text,
+                new { @class = "form-control TextField" })
+            </div>
+
+
+
+            <button class="btn btn-primary btn-lg mb-5" style="float:right" type="submit">
+                Wyślij
+            </button>
+        }
+    </div>
+    <div class="col-5">
+        <p class="alert alert-info InfoAlert" style="margin-top: 120px">
+            Oddziel proszę emaile od siebie
+            <strong> za pomocą spacji lub przecinka</strong>
+        </p>
+    </div>
+</div>
+

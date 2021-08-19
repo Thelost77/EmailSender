@@ -1,0 +1,42 @@
+﻿@model EmailSender.Models.Domains.Email
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<h1>@Model.Title</h1>
+
+
+<div class="row">
+    <div class="col-8">
+
+        @using (Html.BeginForm("Email", "Home"))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group mb-3">
+                <label>Odbiorca</label>
+                @Html.TextBoxFor(x => x.Recipient,
+                new { @class = "form-control", @readonly = "readonly" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(x => x.Text)
+                @Html.TextAreaFor(x => x.Text,
+                new { @class = "form-control TextField", @readonly = "readonly" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(x => x.SentDate)
+                @Html.TextBoxFor(x => x.SentDate, "{0:dd-MM-yyyy}",
+                new
+                     {
+                      @class = "form-control",
+                      @id = "SentDate",
+                      autocomplete = "off"
+                     })
+            </div>
+
+        }
+    </div>
+</div>

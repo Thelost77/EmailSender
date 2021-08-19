@@ -20,8 +20,9 @@ namespace EmailSender.Models.Domains
         [Display(Name = "Tekst wiadomości")]
         public string Text { get; set; }
         [Display(Name = "Data wysłania")]
-        [Required]
+        [Required]        
         public DateTime SentDate { get; set; }
-
+        [Required]
+        public string UserId { get; set; }
     }
 }

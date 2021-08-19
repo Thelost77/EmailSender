@@ -8,11 +8,11 @@ namespace EmailSender.Models.Repositories
 {
     public class EmailRepository
     {
-        public List<Email> GetEmails()
+        public List<Email> GetEmails(string userId)
         {
             using (var context = new ApplicationDbContext())
             {
-                return context.Emails.ToList();
+                return context.Emails.Where(x => x.UserId == userId).ToList();
             }
         }
 
@@ -21,14 +21,27 @@ namespace EmailSender.Models.Repositories
             using (var context = new ApplicationDbContext())
             {
                 context.Emails.Add(email);
+
+                context.SaveChanges();
             }
         }
 
-        public Email GetEmail(int id)
+        public Email GetEmail(int id, string userId)
         {
             using (var context = new ApplicationDbContext())
             {
-                return context.Emails.Single(x => x.Id == id);
+                return context.Emails.Single(x => x.Id == id && x.UserId == userId);
+            }
+        }
+        public void Delete(int id, string userId)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var emailToDelete = context.Emails.Single(x => x.Id == id && x.UserId == userId);
+
+                context.Emails.Remove(emailToDelete);
+
+                context.SaveChanges();
             }
         }
 
